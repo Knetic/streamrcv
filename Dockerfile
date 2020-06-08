@@ -26,4 +26,4 @@ COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 1935
 EXPOSE 8080
 WORKDIR /var/
-CMD ["/usr/sbin/nginx"]
+CMD ["/usr/local/bin/nginx"]
