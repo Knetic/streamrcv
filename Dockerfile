@@ -21,9 +21,9 @@ RUN cd /tmp/nginx-1.16.1/; \
     make install;
 
 COPY index.html /var/lib/streamrcv/data/index.html
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 1935
 EXPOSE 8080
 WORKDIR /var/
-CMD ["/usr/local/bin/nginx"]
+CMD ["/usr/local/nginx/sbin/nginx"]
