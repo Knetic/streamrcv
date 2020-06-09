@@ -22,6 +22,7 @@ RUN cd /tmp/nginx-1.16.1/; \
 
 COPY index.html /var/lib/streamrcv/data/index.html
 COPY nginx.conf /usr/local/nginx/conf/nginx.conf
+COPY encode.sh /usr/local/bin/encode
 
 EXPOSE 1935
 EXPOSE 8080
