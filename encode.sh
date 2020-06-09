@@ -3,7 +3,7 @@
 app=$1
 name=$2
 
-echo "encoding for ${app}/${name}"
+cat "encoding for ${app}/${name}" >> /var/lib/streamrcv/data/hls/wup.txt
 
 /usr/bin/ffmpeg -re \
     -i rtmp://localhost/${app}/${name} \
