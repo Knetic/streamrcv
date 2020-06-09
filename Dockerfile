@@ -28,5 +28,6 @@ EXPOSE 1935
 EXPOSE 8080
 WORKDIR /var/
 VOLUME /var/lib/streamrcv/data/hls
+VOLUME /var/lib/streamrcv/data/rec
 
 CMD ["/usr/local/nginx/sbin/nginx"]
