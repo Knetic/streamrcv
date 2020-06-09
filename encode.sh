@@ -3,6 +3,8 @@
 app=$1
 name=$2
 
+echo "encoding for ${app}/${name}"
+
 /usr/bin/ffmpeg -re \
     -i rtmp://localhost/${app}/${name} \
     -async 1 -vsync -1 \
