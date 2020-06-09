@@ -26,5 +26,6 @@ COPY nginx.conf /usr/local/nginx/conf/nginx.conf
 EXPOSE 1935
 EXPOSE 8080
 WORKDIR /var/
+VOLUME /var/lib/streamrcv/data/hls
 
 CMD ["/usr/local/nginx/sbin/nginx"]
