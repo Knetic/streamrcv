@@ -5,7 +5,7 @@ FROM debian:latest
 
 RUN apt-get update; \
     apt-get install -y \
-    build-essential libpcre3 libpcre3-dev libssl-dev autoconf automake git wget curl zlib1g zlib1g-dev
+    build-essential libpcre3 libpcre3-dev libssl-dev autoconf automake git wget curl zlib1g zlib1g-dev ffmpeg
 
 RUN cd /tmp; \
     git clone https://github.com/arut/nginx-ts-module.git; \
