@@ -27,6 +27,7 @@ func main() {
 	passkeys = pk
 	http.HandleFunc("/auth", handleAuth)
 	
+	fmt.Printf("Listening on '%s'\n", host)
 	err = http.ListenAndServe(host, nil)
 	if err != nil {
 		fmt.Printf("unable to serve http: %v\n", err)
