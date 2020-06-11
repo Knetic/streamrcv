@@ -54,6 +54,8 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 	if !ok || actual != creds {
 		http.Error(w, "Incorrect creds", 401)
 	}
+
+	fmt.Printf("creds given: '%s' versus actual: '%s'\n", creds, actual)
 }
 
 func loadPasskeys(path string) (map[string]string, error) {
