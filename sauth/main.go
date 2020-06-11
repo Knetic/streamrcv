@@ -47,7 +47,7 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 
 func loadPasskeys(path string) (map[string]string, error) {
 
-	var ret map[string]string
+	ret := make(map[string]string)
 
 	fd, err := os.Open(path)
 	if err != nil {
