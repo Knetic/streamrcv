@@ -1,4 +1,4 @@
-default: containerized_build
+default: dockerPackage
 
 export GOPATH=$(CURDIR)/
 export GOBIN=$(CURDIR)/.output/bin/
