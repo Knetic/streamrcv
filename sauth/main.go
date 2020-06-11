@@ -35,6 +35,8 @@ func main() {
 
 func handleAuth(w http.ResponseWriter, r *http.Request) {
 
+	fmt.Printf("handling auth\n")
+
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Unable to parse form body", 400)
