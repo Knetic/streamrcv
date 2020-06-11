@@ -14,10 +14,10 @@ var passkeys map[string]string
 func main() {
 
 	var passkeyPath string
-	var port int
+	var host string
 
 	flag.StringVar(&passkeyPath, "-f", "/etc/sauth/passkeys.conf", "Path of the passkey file")
-	flag.IntVar(&port, "-p", 1930, "Port to listen on")
+	flag.StringVar(&host, "-h", "127.0.0.1:1930", "IP/Port to listen on")
 
 	pk, err := loadPasskeys(passkeyPath)
 	if err != nil {
@@ -25,11 +25,9 @@ func main() {
 		os.Exit(1)
 	}
 	passkeys = pk
-
-	listenPath := fmt.Sprintf(":%d\n", port)
 	http.HandleFunc("/auth", handleAuth)
 	
-	err = http.ListenAndServe(listenPath, nil)
+	err = http.ListenAndServe(host, nil)
 	if err != nil {
 		fmt.Printf("unable to serve http: %v\n", err)
 	}
