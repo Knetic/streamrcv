@@ -1,4 +1,7 @@
-default: build
+default: build_sauth build_streamrcv
 
-build:
-	docker build -t streamrcv .
+build_sauth:
+	@cd sauth && make
+
+build_streamrcv:
+	@cd streamrcv && make
