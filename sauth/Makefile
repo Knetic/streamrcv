@@ -18,7 +18,7 @@ containerized_build: dockerTest
 		-v "$(CURDIR)":"/srv/build":rw \
 		-u "$(shell id -u $(whoami)):$(shell id -g $(whoami))" \
 		-e SAUTH_VERSION=$(SAUTH_VERSION) \
-		golang:1.10 \
+		golang:1.14 \
 		bash -c \
 		"cd /srv/build; make build"
 
