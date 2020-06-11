@@ -50,7 +50,8 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 	name := r.Form()["name"] // equivalent to "stream key"
 	creds := user + ":" + pass
 
-	if passkeys[name] != creds {
+	actual, ok := passkeys[name]
+	if !ok || actual != creds {
 		http.Error(w, "Incorrect creds", 401)
 	}
 }
