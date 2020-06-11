@@ -16,8 +16,8 @@ func main() {
 	var passkeyPath string
 	var host string
 
-	flag.StringVar(&passkeyPath, "-f", "/etc/sauth/passkeys.conf", "Path of the passkey file")
-	flag.StringVar(&host, "-h", "127.0.0.1:1930", "IP/Port to listen on")
+	flag.StringVar(&passkeyPath, "f", "/etc/sauth/passkeys.conf", "Path of the passkey file")
+	flag.StringVar(&host, "h", "0.0.0.0:1930", "IP/Port to listen on")
 
 	pk, err := loadPasskeys(passkeyPath)
 	if err != nil {
