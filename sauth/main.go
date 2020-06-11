@@ -36,14 +36,23 @@ func main() {
 
 func handleAuth(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Printf("handling auth\n")
-
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Unable to parse form body", 400)
 	}
 
-	fmt.Printf("form values: %v\n", r.Form)
+	user, pass, ok := r.BasicAuth()
+	if !ok {
+		http.Error(w, "No auth provided", 403)
+	}
+	
+	//app := r.Form()["app"]
+	name := r.Form()["name"] // equivalent to "stream key"
+	creds := user + ":" + pass
+
+	if passkeys[name] != creds {
+		http.Error(w, "Incorrect creds", 401)
+	}
 }
 
 func loadPasskeys(path string) (map[string]string, error) {
