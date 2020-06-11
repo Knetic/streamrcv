@@ -47,7 +47,12 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	//app := r.Form()["app"]
-	name := r.Form()["name"] // equivalent to "stream key"
+	names, ok := r.Form["name"]
+	if !ok || len(names) <= 0 {
+		http.Error(w, "no 'name' provided in form body", 400)
+	}
+
+	name := names[0] // equivalent to "stream key"
 	creds := user + ":" + pass
 
 	actual, ok := passkeys[name]
