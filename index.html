@@ -37,8 +37,8 @@
                 player.play();
 
                 // it worked. Show player, hide picker, set url.
-                document.getElementById("player").attributes["style"] = null;
-                document.getElementById("streamPicker").attributes["style"] = "visibility: hidden";
+                document.getElementById("player").style = null;
+                document.getElementById("streamPicker").attributes["display"] = "none";
 
                 replaceURLStreamId(streamId);
             }
