@@ -39,27 +39,32 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Unable to parse form body", 400)
+		return
 	}
 
 	names, ok := r.Form["name"]
 	if !ok || len(names) <= 0 {
 		http.Error(w, "no 'name' provided in form body", 400)
+		return
 	}
 	streamKey := names[0] 
 
 	pk, ok := r.Form["pk"]
 	if !ok || len(pk) <= 0 {
 		http.Error(w, "no 'pk' provided in form body", 400)
+		return
 	}
 	passkey := strings.Join(pk, "")
 
 	actual, ok := passkeys[streamKey]
 	if !ok {
 		http.Error(w, "no such stream key registered", 401)
+		return
 	}
 
 	if actual != passkey {
 		http.Error(w, "given pk doesn't match registered", 403)
+		return
 	}
 
 	// if everything went through, no problem.
