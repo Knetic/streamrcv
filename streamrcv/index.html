@@ -36,14 +36,11 @@
                 document.getElementById("streamSource").src = "/hls/" + streamId + ".m3u8";
                 
                 var player = videojs('player');
+                player.play();
 
                 // it worked. Show player, hide picker, set url.
-                document.getElementById("player").style = "";
-                document.getElementById("streamPicker").style = "display: none";
-
+                //document.getElementById("streamPicker").style = "display: none";
                 replaceURLStreamId(streamId);
-
-                player.play();
             }
 
             function replaceURLStreamId(streamId)
