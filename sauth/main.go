@@ -41,26 +41,28 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unable to parse form body", 400)
 	}
 
-	user, pass, ok := r.BasicAuth()
-	if !ok {
-		http.Error(w, "No auth provided", 403)
-	}
-	
-	//app := r.Form()["app"]
 	names, ok := r.Form["name"]
 	if !ok || len(names) <= 0 {
 		http.Error(w, "no 'name' provided in form body", 400)
 	}
+	streamKey := names[0] 
 
-	name := names[0] // equivalent to "stream key"
-	creds := user + ":" + pass
+	pk, ok := r.Form["pk"]
+	if !ok || len(pk) <= 0 {
+		http.Error(w, "no 'pk' provided in form body", 400)
+	}
+	passkey := strings.Join(pk, "")
 
-	actual, ok := passkeys[name]
-	if !ok || actual != creds {
-		http.Error(w, "Incorrect creds", 401)
+	actual, ok := passkeys[streamKey]
+	if !ok {
+		http.Error(w, "no such stream key registered", 401)
 	}
 
-	fmt.Printf("creds given: '%s' versus actual: '%s'\n", creds, actual)
+	if actual != passkey {
+		http.Error(w, "given pk doesn't match registered", 403)
+	}
+
+	// if everything went through, no problem.
 }
 
 func loadPasskeys(path string) (map[string]string, error) {
