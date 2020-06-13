@@ -7,13 +7,15 @@ import (
 	"strings"
 	"flag"
 	"net/http"
+	"time"
 )
 
+var passkeyPath string
+
 var passkeys map[string]string
+var lastRetrieved time.Time
 
-func main() {
-
-	var passkeyPath string
+func main() {	
 	var host string
 
 	flag.StringVar(&passkeyPath, "f", "/etc/sauth/passkeys.conf", "Path of the passkey file")
@@ -25,6 +27,8 @@ func main() {
 		os.Exit(1)
 	}
 	passkeys = pk
+	lastRetrieved = time.Now()
+
 	http.HandleFunc("/auth", handleAuth)
 	
 	fmt.Printf("Listening on '%s'\n", host)
@@ -55,6 +59,12 @@ func handleAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	passkey := strings.Join(pk, "")
+
+	err = refreshPasskeys()
+	if err != nil {
+		http.Error(w, "unable to refresh passkeys", 500)
+		return
+	}
 
 	actual, ok := passkeys[streamKey]
 	if !ok {
@@ -94,4 +104,18 @@ func loadPasskeys(path string) (map[string]string, error) {
 	}
 
 	return ret, nil
+}
+
+func refreshPasskeys() error {
+
+	diff := time.Since(lastRetrieved)
+	if diff.Seconds() >= 5 {
+		pk, err := loadPasskeys(passkeyPath)
+		if err != nil {
+			return err
+		}
+		passkeys = pk
+	}
+
+	return nil
 }
