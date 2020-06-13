@@ -50,6 +50,7 @@
                 stateLocation = stateLocation + "?st=" + streamId;
                 
                 window.history.pushState({}, streamId, stateLocation);
+                document.title = streamId;
             }
 
             function inputKey(event)
