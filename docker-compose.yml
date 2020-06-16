@@ -1,0 +1,25 @@
+version: "2"
+services:
+  streamrcv:
+    image: streamrcv
+    container_name: "streamrcv"
+    restart: unless-stopped
+    expose:
+    - 8080
+    ports:
+    - 1935:1935
+    environment:
+      - SHELL=/bin/bash
+    volumes:
+      - /var/lib/streamrcv/data/hls:/var/lib/streamrcv/data/hls:rw
+      - /var/lib/streamrcv/data/rec:/var/lib/streamrcv/data/rec:rw
+
+  sauth:
+    image: sauth
+    container_name: "sauth"
+    restart: unless-stopped
+    ports:
+      - 1930:1930
+    volumes:
+      - /etc/streamrcv/sauth.conf:/etc/sauth/passkeys.conf:ro
+    command: /usr/local/bin/sauth -h 0.0.0.0:1930
