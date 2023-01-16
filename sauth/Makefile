@@ -1,6 +1,18 @@
 default: dockerPackage
 
-dockerPackage:
+dockerTest:
+ifeq ($(shell which docker), )
+	@echo "Docker is not installed."
+	@exit 1
+endif
+
+build: clean
+	go build -o ./sauth .
+
+clean:
+	@rm -f ./sauth
+
+dockerPackage: dockerTest
 	docker build . -t sauth:latest
 
 #dockerPublish: dockerPackage
