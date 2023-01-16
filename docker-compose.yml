@@ -8,6 +8,7 @@ services:
     - 8080
     ports:
     - 1935:1935
+    - 8080:8080
     environment:
       - SHELL=/bin/bash
     volumes:
